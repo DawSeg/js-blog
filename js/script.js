@@ -31,22 +31,22 @@ for(let activeArticle of activeArticles){
 }
 
 /*[DONE] get 'href' attribute from the clicked link */
-const linkSelector = clickedElement.getAttribute('href');
+const articleSelector = clickedElement.getAttribute('href');
 console.log(linkSelector);
 
 /*[DONE] find the correct article using the selector (value of 'href' attribute) */
-const targetArticle = document.querySelector(linkSelector);
+const targetArticle = document.querySelector(articleSelector);
 console.log(targetArticle);
 
 /* [DONE] add class 'active' to the correct article */
 targetArticle.classList.add('active');
-};
-
-const links = document.querySelectorAll('.titles a');
+}
+/*const links = document.querySelectorAll('.titles a');
   
   for(let link of links){
     link.addEventListener('click', titleClickHandler);
-  }
+  }*/
+
   const optArticleSelector = '.post',
     optTitleSelector = '.post-title',
     optTitleListSelector = '.titles';
@@ -78,7 +78,7 @@ const links = document.querySelectorAll('.titles a');
 
     /* insert link into titleList */
     titleList.innerHTML = titleList.innerHTML + linkHTML;
-
+      
 
     }      
   }
