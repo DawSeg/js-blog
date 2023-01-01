@@ -17,9 +17,9 @@
     "build:autoprefixer": "postcss css/*.css --use autoprefixer -d css",
     "build:sass": "sass --style=expanded --source-map sass:css",
 
-    "watch": "npm-run-all build:*  -p watch:*",
-    "watch:browsersync": "browser-sync start --server --files \"css/*.css\" \"*.html\"",
-    "watch:sassprefixer": "onchange sass/*.scss -- npm run build-dev"
+    "watch": "npm-run-all build:* build:sass -p watch:*",
+    "watch:browsersync": "browser-sync start --server --files \"css/*.css\" \"*.html\" \"js/*.js\"",
+    "watch:sassprefixer": "onchange sass/*.scss -- npm run build"
 
   },
   "keywords": [],
