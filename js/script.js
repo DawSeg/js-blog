@@ -37,8 +37,8 @@ const optArticleSelector = '.post',
   optArticleAuthorSelector = '.post-author',
   optTagsListSelector = '.tags.list',
   optCloudClassCount = '5',
-  optCloudClassPrefix = 'tag-size-';
-
+  optCloudClassPrefix = 'tag-size-',
+  optAuthorsListSelector = '.list.authors';
 
 function generateTitleLinks(customSelector = '') {
 
@@ -155,14 +155,11 @@ function generateTags(){
 
   /* [NEW] create variable for all links HTML code */
   let allTagsHTML = '';
-
   /* [NEW] START LOOP: for each tag in allTags: */
   for(let tag in allTags){
 
     /* [NEW] generate code of a link and add it to allTagsHTML */
-    allTagsHTML += tag + ' (' + allTags[tag] + ') ';
-    const tagLinkHTML = '<li><a class="' + calculateTagClass(allTags[tag], tagsParams) +'" href="#tag-' + tag +'"></a></li>';
-    console.log('tagLinkHTML:', tagLinkHTML);
+    allTagsHTML += '<li><a class="' + calculateTagClass(allTags[tag], tagsParams) +'" href="#tag-' + tag +'">' +tag + ' (' + allTags[tag] + ')</a></li>';
 
   /* [NEW] END LOOP: for each tag in allTags: */
   }
@@ -219,7 +216,7 @@ function tagClickHandler(event){
 function addClickListenersToTags() {
 
   /* find all links to tags */
-  const tagLinks = document.querySelectorAll('.post-tags a');
+  const tagLinks = document.querySelectorAll('.post-tags a, .list.tags a');
 
   /* START LOOP: for each link */
   for (let tagLink of tagLinks) {
@@ -235,8 +232,12 @@ addClickListenersToTags();
 
 function generateAuthors(){
 
+  /* [NEW] create a new variable allTags with an empty array */
+  let allAuthors = {};
+  //[]
+
   //Find all articles
-  const articles=document.querySelectorAll(optArticleSelector);
+  const articles = document.querySelectorAll(optArticleSelector);
 
   //START LOOP: for every article
   for(let article of articles){
@@ -253,8 +254,39 @@ function generateAuthors(){
     //insert html of the links into the author wrapper
     authorWrapper.innerHTML=authorLink;
 
+   
+
+    /* [NEW] check if this link is NOT already in allTags */
+    if(!allAuthors[author]){
+
+      /* [NEW] add generated code to allTags array */
+      allAuthors[author] = 1;
+    } else {
+      allAuthors[author]++;
+    }
+
+
   //END LOOP for every article
   }
+
+  /* [NEW] find list of tags in right column */
+  const authorList = document.querySelector(optAuthorsListSelector);
+
+  /* [NEW] create variable for all links HTML code */
+  let allAuthorsHTML = '';
+
+  /* [NEW] START LOOP: for each tag in allTags: */
+  for(let author in allAuthors){
+
+    /* [NEW] generate code of a link and add it to allTagsHTML */
+    allAuthorsHTML += '<li><a href="#author-' + author + '">' + author + ' (' + allAuthors[author] + ') ' + '</a></li>';
+  
+  /* [NEW] END LOOP: for each tag in allTags: */
+  }
+  
+  /*[NEW] add HTML from allTagsHTML to tagList */
+  authorList.innerHTML = allAuthorsHTML;
+
 }
 
 generateAuthors();
